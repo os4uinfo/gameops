@@ -13,3 +13,5 @@ Install go-bindata
 
 
 
+Reference URL:
+http://studygolang.com/articles/884
