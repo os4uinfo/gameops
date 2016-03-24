@@ -29,7 +29,8 @@ func httpServer(addr string) {
     http.HandleFunc("/panels-wells.html", panels)
     http.HandleFunc("/typography.html", typography)
     http.HandleFunc("/index", index)
-    http.HandleFunc("/allgame", allgame)
+    http.HandleFunc("/allgame", allgames)
+    http.HandleFunc("/logs", alllogs)
 
     fmt.Println("master http start!", addr)
     log.Fatal(http.ListenAndServe(addr, nil))
@@ -60,7 +61,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func tables(w http.ResponseWriter, r *http.Request) {
-    results := getInfo()
+    results := getLogInfo()
     err := templates.ExecuteTemplate(w, "tables.html", results)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -135,32 +136,17 @@ func typography(w http.ResponseWriter, r *http.Request) {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
 }
+func allgames(w http.ResponseWriter, r *http.Request) {
+    results := getServerInfo()
+    err := templates.ExecuteTemplate(w, "allgames.html", results)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
 
-func allgame(w http.ResponseWriter, r *http.Request) {
-//    fmt.Println(getinfo())
-//    htmlServer := [10]int{23,34, 12, 34, 1, 13, 43, 1, 5, 66}
-//    fmt.Println(htmlServer)
-//    abc := map[string]string{
-//       "a": "bc",
-//       "b": "ac",
-//    }
-    // err := templates.ExecuteTemplate(w, "allgame.html", htmlServer)
-//    results := dbQuery()
-    results := getInfo()
-//  for _, row := range results {
-//      val1 := row[1].([]byte)
-//      fmt.Println(val1)
-//      fmt.Println(row.Int(0))
-//      fmt.Println(row.Str(1))
-//      fmt.Println(row.Str(2))
-//      fmt.Println(row.Str(3))
-//      fmt.Println(row.Str(4))
-//      fmt.Println(row.Str(5))
-//      fmt.Println(row.Str(6))
-//      fmt.Println(row.Str(7))
-//  }
-
-    err := templates.ExecuteTemplate(w, "allgame.html", results)
+func alllogs(w http.ResponseWriter, r *http.Request) {
+    results := getLogInfo()
+    err := templates.ExecuteTemplate(w, "logs.html", results)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }

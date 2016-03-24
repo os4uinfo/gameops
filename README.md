@@ -15,3 +15,5 @@ Install go-bindata
 
 Reference URL:
 http://studygolang.com/articles/884
+
+https://github.com/josephspurrier/gowebapp
