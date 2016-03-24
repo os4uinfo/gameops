@@ -40,7 +40,6 @@ func ping(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("pong"))
 }
 
-
 func static(w http.ResponseWriter, r *http.Request) {
     urlpath := r.URL.Path
     data, err := Asset("html" + urlpath)
